@@ -3,6 +3,7 @@
   "description": "Ghost Note",
   "version": "0.0.1",
 	"author": "Seven Yu",
+	"homepage": "https://github.com/dofy/utools-ghost-note",
   "main": "index.html",
 	"preload": "preload.js",
   "features": [
