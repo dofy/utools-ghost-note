@@ -2,15 +2,24 @@
   "pluginName": "Ghost Note",
   "description": "Ghost Note",
   "version": "0.0.1",
-	"author": "Seven Yu",
-	"homepage": "https://github.com/dofy/utools-ghost-note",
+  "author": "Seven Yu",
+  "homepage": "https://github.com/dofy/utools-ghost-note",
   "main": "index.html",
-	"preload": "preload.js",
   "features": [
     {
-      "code": "gnote",
-      "explain": "Create Ghost Note",
+      "code": "listnote",
+      "explain": "查看全部 Ghost Note",
       "cmds": ["ghost", "note", "gn"]
+    },
+    {
+      "code": "addnote",
+      "explain": "为当前应用添加 Ghost Note",
+      "cmds": [
+        {
+          "type": "window",
+          "label": "Add Ghost Note"
+        }
+      ]
     }
   ]
 }
