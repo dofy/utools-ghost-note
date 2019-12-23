@@ -1,0 +1,15 @@
+{
+  "pluginName": "Ghost Note",
+  "description": "Ghost Note",
+  "version": "0.0.1",
+	"author": "Seven Yu",
+  "main": "index.html",
+	"preload": "preload.js",
+  "features": [
+    {
+      "code": "gnote",
+      "explain": "Create Ghost Note",
+      "cmds": ["ghost", "note", "gn"]
+    }
+  ]
+}
