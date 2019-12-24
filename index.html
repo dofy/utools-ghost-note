@@ -4,10 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script src="preload.js"></script>
-    <title>Ghost Note</title>
+    <link rel="stylesheet" href="simplemde/simplemde.min.css" />
+    <script src="simplemde/simplemde.min.js"></script>
+    <style>
+      html,
+      body,
+      .CodeMirror,
+      .box {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
   </head>
   <body>
-    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <div id="list" class="box">list...</div>
+    <div id="editor" class="box">
+      <textarea id="mde" ></textarea>
+    </div>
   </body>
+  <script src="preload.js"></script>
 </html>
