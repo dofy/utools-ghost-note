@@ -4,26 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="simplemde/simplemde.min.css" />
-    <script src="simplemde/simplemde.min.js"></script>
-    <style>
-      html,
-      body,
-      .CodeMirror,
-      .box {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-
+    <script src="js/vue.min.js"></script>
+    <script src="js/stackedit.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/bootstrap-vue.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-vue.min.css" />
   </head>
   <body>
-    <div id="list" class="box">list...</div>
-    <div id="editor" class="box">
-      <textarea id="mde" ></textarea>
+    <div id="list">
+      <b-table
+        hover
+        sticky-header="630px"
+        head-variant="light"
+        :items="notes"
+        :fields="fields"
+      >
+        <template v-slot:cell(#)="data">
+          {{ data.index + 1 }}
+        </template>
+        <!-- <template v-slot:cell(app)="data"> -->
+          <!-- <b-link href="#" @click="runApp(data.item._id)">{{ data.item.app }}</b-link> -->
+        <!-- </template> -->
+        <template v-slot:cell(Actions)="data">
+          <b-button-group>
+            <b-button
+              size="sm"
+              variant="outline-success"
+              @click=" editNote(data.item._id)"
+              >Edit</b-button
+            >
+            <b-button
+              size="sm"
+              variant="outline-danger"
+              @click="{{this.confirm('删除 Note 不可恢复！') && delNote(data.item._id)}}"
+              >Del</b-button
+            >
+          </b-button-group>
+        </template>
+      </b-table>
     </div>
   </body>
-  <script src="preload.js"></script>
+  <script src="js/main.js"></script>
 </html>
