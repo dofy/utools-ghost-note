@@ -1,7 +1,7 @@
 {
   "pluginName": "Ghost Note",
   "description": "Ghost Note",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "author": "Seven Yu",
   "homepage": "https://github.com/dofy/utools-ghost-note",
   "main": "index.html",

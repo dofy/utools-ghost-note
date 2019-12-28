@@ -6,6 +6,22 @@ var mde = new SimpleMDE({
   status: false,
   toolbar: false,
   spellChecker: false,
+  shortcuts: {
+    toggleBlockquote: null,
+    toggleBold: null,
+    cleanBlock: null,
+    toggleHeadingSmaller: null,
+    toggleItalic: null,
+    drawLink: null,
+    toggleUnorderedList: null,
+    togglePreview: null,
+    toggleCodeBlock: null,
+    drawImage: null,
+    toggleOrderedList: null,
+    toggleHeadingBigger: null,
+    toggleSideBySide: null,
+    toggleFullScreen: null,
+  },
 })
 
 mde.codemirror.on('change', (editor, evt) => {
