@@ -5,18 +5,16 @@ window.spawn = spawn
 
 utools.onPluginEnter(({ code, payload, type }) => {
   utools.setExpendHeight(630)
+  app.status = code
   updateNotes()
   switch (code) {
-    case 'addnote':
+    case 'bind':
       editNote(payload.appPath, payload)
       break
-    case 'listnote':
+    case 'ghost':
     default:
-      editor.close()
       break
   }
 })
 
-utools.onPluginOut(() => {
-  editor.close()
-})
+utools.onPluginOut(() => {})

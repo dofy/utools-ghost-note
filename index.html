@@ -5,43 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="js/vue.min.js"></script>
-    <script src="js/stackedit.min.js"></script>
+    <script src="js/simplemde.min.js"></script>
     <script src="js/bootstrap-vue.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/simplemde.min.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/bootstrap-vue.min.css" />
   </head>
   <body>
-    <div id="list">
-      <b-table
-        hover
-        sticky-header="630px"
-        head-variant="light"
-        :items="notes"
-        :fields="fields"
-      >
-        <template v-slot:cell(#)="data">
-          {{ data.index + 1 }}
-        </template>
-        <!-- <template v-slot:cell(app)="data"> -->
+    <div id="app">
+      <div v-show="status === 'ghost'">
+        <b-table
+          hover
+          sticky-header="630px"
+          head-variant="light"
+          :items="notes"
+          :fields="fields"
+        >
+          <template v-slot:cell(#)="data">
+            {{ data.index + 1 }}
+          </template>
+          <!-- <template v-slot:cell(app)="data"> -->
           <!-- <b-link href="#" @click="runApp(data.item._id)">{{ data.item.app }}</b-link> -->
-        <!-- </template> -->
-        <template v-slot:cell(Actions)="data">
-          <b-button-group>
-            <b-button
-              size="sm"
-              variant="outline-success"
-              @click=" editNote(data.item._id)"
-              >Edit</b-button
-            >
-            <b-button
-              size="sm"
-              variant="outline-danger"
-              @click="{{this.confirm('删除 Note 不可恢复！') && delNote(data.item._id)}}"
-              >Del</b-button
-            >
-          </b-button-group>
-        </template>
-      </b-table>
+          <!-- </template> -->
+          <template v-slot:cell(Actions)="data">
+            <b-button-group>
+              <b-button
+                size="sm"
+                variant="outline-success"
+                @click=" editNote(data.item._id)"
+                >Edit</b-button
+              >
+              <b-button
+                size="sm"
+                variant="outline-danger"
+                @click="{{this.confirm('删除 Note 不可恢复！') && delNote(data.item._id)}}"
+                >Del</b-button
+              >
+            </b-button-group>
+          </template>
+        </b-table>
+      </div>
+    </div>
+    <div id="editorbox">
+      <textarea style="display: none;"></textarea>
     </div>
   </body>
   <script src="js/main.js"></script>

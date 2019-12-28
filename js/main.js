@@ -1,17 +1,40 @@
 // * Ghost Note
-const editor = new Stackedit()
-editor.on('fileChange', file => {
-  note = utools.db.get(unsafeid(file.name))
-  note.content = file.content.text
-  note.updated = new Date()
-  utools.db.put(note)
+
+var timeid = null
+var mde = new SimpleMDE({
+  autofocus: true,
+  status: false,
+  toolbar: false,
+  spellChecker: false,
 })
-editor.on('close', () => {
-  updateNotes()
+
+mde.codemirror.on('change', (editor, evt) => {
+  // save note
+  timeid && clearTimeout(timeid)
+  timeid = setTimeout(() => {
+    timeid = null
+    saveNote()
+  }, 1000)
+})
+mde.codemirror.on('keydown', (editor, evt) => {
+  console.log('..:: evt', evt)
+  if (evt.ctrlKey || evt.metaKey) {
+    switch (evt.key) {
+      case 's':
+        break
+      case 'w':
+        app.status = 'ghost'
+        saveNote()
+        updateNotes()
+        break
+      default:
+        break
+    }
+  }
 })
 
 var app = new Vue({
-  el: '#list',
+  el: '#app',
   data() {
     return {
       notes: [],
@@ -36,7 +59,14 @@ var app = new Vue({
         },
         'Actions',
       ],
+      status: null,
+      noteid: null,
     }
+  },
+  watch: {
+    status(newVal, oldVal) {
+      document.getElementById('editorbox').hidden = newVal !== 'bind'
+    },
   },
   methods: {
     timeFormatter(value) {
@@ -65,13 +95,21 @@ function editNote(id, payload) {
     updated: new Date(),
     content: `# Note for ${payload.app}\n`,
   }
+  console.log('..:: editNote -> mde', mde)
+  app.status = 'bind'
+  app.noteid = id
+  setTimeout(() => {
+    mde.value(note.content)
+  }, 0)
+
   utools.db.put(note)
-  editor.openFile({
-    name: safeid(id),
-    content: {
-      text: note.content,
-    },
-  })
+}
+
+function saveNote() {
+  let note = utools.db.get(app.noteid)
+  note.content = mde.value()
+  note.updated = new Date()
+  utools.db.put(note)
 }
 
 function delNote(id) {
