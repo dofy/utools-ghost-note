@@ -11,7 +11,7 @@
 ## 预览图
 
 便签列表/管理
-![Ghost Note](https://raw.githubusercontent.com/dofy/utools-ghost-note/master/images/list.png)
+![Ghost Note](images/list.png)
 
 绑定/编辑便签
-![Ghost Note](https://raw.githubusercontent.com/dofy/utools-ghost-note/master/images/bind.png)
+![Ghost Note](images/bind.png)
