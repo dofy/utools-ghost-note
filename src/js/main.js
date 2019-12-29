@@ -33,7 +33,6 @@ mde.codemirror.on('change', (editor, evt) => {
   }, 1000)
 })
 mde.codemirror.on('keydown', (editor, evt) => {
-  console.log('..:: evt', evt)
   if (evt.ctrlKey || evt.metaKey) {
     switch (evt.key) {
       case 's':
@@ -111,7 +110,6 @@ function editNote(id, payload) {
     updated: new Date(),
     content: `# Note for ${payload.app}\n`,
   }
-  console.log('..:: editNote -> mde', mde)
   app.status = 'bind'
   app.noteid = id
   setTimeout(() => {
