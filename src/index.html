@@ -25,9 +25,11 @@
           <template v-slot:cell(#)="data">
             {{ data.index + 1 }}
           </template>
-          <!-- <template v-slot:cell(app)="data"> -->
-          <!-- <b-link href="#" @click="runApp(data.item._id)">{{ data.item.app }}</b-link> -->
-          <!-- </template> -->
+          <template v-slot:cell(app)="data">
+            <b-link href="#" @click="runApp(data.item._id)"
+              >{{ data.item.app }}</b-link
+            >
+          </template>
           <template v-slot:cell(Actions)="data">
             <b-button-group>
               <b-button

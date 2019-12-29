@@ -1,7 +1,7 @@
 // * Ghost Note
-const { spawn } = require('child_process')
+const { shell } = require('electron')
 
-window.spawn = spawn
+window.runApp = shell.openItem
 
 utools.onPluginEnter(({ code, payload, type }) => {
   utools.setExpendHeight(630)

@@ -131,10 +131,6 @@ function delNote(id) {
   updateNotes()
 }
 
-function runApp(path) {
-  spawn(path)
-}
-
 function safeid(id) {
   return id.replace(/\//g, '{{._.}}')
 }
