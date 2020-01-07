@@ -41,7 +41,8 @@
               <b-button
                 size="sm"
                 variant="outline-danger"
-                @click="{{this.confirm('删除 Note 不可恢复！') && delNote(data.item._id)}}"
+                :value="data.item._id"
+                @click="delNote"
                 >Del</b-button
               >
             </b-button-group>

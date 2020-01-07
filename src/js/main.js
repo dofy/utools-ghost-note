@@ -126,9 +126,20 @@ function saveNote() {
   utools.db.put(note)
 }
 
-function delNote(id) {
-  utools.db.remove(id)
-  updateNotes()
+function delNote(evt) {
+  app.$bvModal
+    .msgBoxConfirm('Sure to delete this Note?', {
+      title: 'Confirm',
+      okVariant: 'danger',
+      okTitle: 'Delete',
+      cancelTitle: 'Cancel',
+    })
+    .then(value => {
+      if (value) {
+        utools.db.remove(evt.target.value)
+        updateNotes()
+      }
+    })
 }
 
 function safeid(id) {
