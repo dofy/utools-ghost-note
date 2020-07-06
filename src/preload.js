@@ -1,9 +1,5 @@
 // * Ghost Note
-const { shell } = require('electron')
-
-window.runApp = shell.openItem
-
-utools.onPluginEnter(({ code, payload, type }) => {
+utools.onPluginEnter(({ code, payload }) => {
   utools.setExpendHeight(630)
   app.status = code
   updateNotes()

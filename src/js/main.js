@@ -84,12 +84,15 @@ var app = new Vue({
     },
   },
   methods: {
+    runApp(path) {
+      utools.shellOpenPath(path)
+    },
     timeFormatter(value) {
       const date = new Date(value)
       return [
         [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('/'),
         [date.getHours(), date.getMinutes(), date.getSeconds()]
-          .map(item => (item > 9 ? item : '0' + item))
+          .map((item) => (item > 9 ? item : '0' + item))
           .join(':'),
       ].join(' ')
     },
@@ -134,7 +137,7 @@ function delNote(evt) {
       okTitle: 'Delete',
       cancelTitle: 'Cancel',
     })
-    .then(value => {
+    .then((value) => {
       if (value) {
         utools.db.remove(evt.target.value)
         updateNotes()
