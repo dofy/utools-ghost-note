@@ -9,14 +9,9 @@
       "cmds": ["ghost", "notes", "gn"]
     },
     {
-      "code": "bind",
-      "explain": "为当前应用添加 Ghost Note",
-      "cmds": [
-        {
-          "type": "window",
-          "label": "Bind Ghost Note"
-        }
-      ]
+      "code": "option",
+      "explain": "设置 Ghost Note",
+      "cmds": ["options", "settings"]
     }
   ]
 }

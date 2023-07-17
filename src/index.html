@@ -22,9 +22,7 @@
           :items="notes"
           :fields="fields"
         >
-          <template v-slot:cell(#)="data">
-            {{ data.index + 1 }}
-          </template>
+          <template v-slot:cell(#)="data">{{ data.index + 1 }}</template>
           <template v-slot:cell(app)="data">
             <b-link href="#" @click="runApp(data.item._id)"
               >{{ data.item.app }}</b-link
@@ -35,7 +33,7 @@
               <b-button
                 size="sm"
                 variant="outline-success"
-                @click=" editNote(data.item._id)"
+                @click="editNote(data.item._id)"
                 >Edit</b-button
               >
               <b-button
@@ -49,9 +47,38 @@
           </template>
         </b-table>
       </div>
-    </div>
-    <div id="editorbox">
-      <textarea style="display: none;"></textarea>
+      <!-- markdown editor -->
+      <div v-show="status === 'bind'">
+        <textarea style="display: none"></textarea>
+      </div>
+      <!-- options -->
+      <div v-show="status === 'option'">
+        <div class="p-3">
+          <h2>设置</h2>
+          <label for="apps">添加/删除 允许绑定 Ghost Note 的应用:</label>
+          <b-form-tags
+            input-id="apps"
+            v-model="apps"
+            tag-variant="primary"
+            size="lg"
+            placeholder="请输入完整的应用名称，如： Visual Studio Code.app"
+          ></b-form-tags>
+        </div>
+        <div class="px-3">
+          <!-- tips -->
+          <b-alert show>
+            <h4 class="alert-heading">说明：</h4>
+            <p>完整的应用名称可以通过 uTools 内置的「窗口信息」插件获得。</p>
+            <p>
+              <img
+                src="images/get_app_name.png"
+                alt="get app name"
+                style="width: 100%"
+              />
+            </p>
+          </b-alert>
+        </div>
+      </div>
     </div>
   </body>
   <script src="js/main.js"></script>
