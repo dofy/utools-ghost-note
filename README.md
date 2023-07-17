@@ -16,3 +16,6 @@
 
 绑定/编辑便签
 ![Ghost Note](images/bind.png)
+
+应用设置
+![Ghost Note Settings](images/options.png)

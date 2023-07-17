@@ -16,3 +16,6 @@
 
 绑定/编辑便签
 ![Ghost Note](https://raw.githubusercontent.com/dofy/utools-ghost-note/master/images/bind.png)
+
+应用设置
+![Ghost Note Settings](https://raw.githubusercontent.com/dofy/utools-ghost-note/master/images/options.png)
