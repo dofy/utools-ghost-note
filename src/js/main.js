@@ -29,6 +29,12 @@ var app = new Vue({
       apps: [],
       status: null,
       noteid: null,
+      keyword: "",
+      keywordContent: "",
+      keywordLength: 0,
+      keywordIndex: 1,
+      isShowedit: true,
+      note: "",
     };
   },
   watch: {
@@ -127,7 +133,7 @@ async function editNote(id, payload) {
     app: payload.app,
     created: new Date(),
     updated: new Date(),
-    content: `# Note for ${payload.app}\n`,
+    content: ` # Note for ${payload.app}\n  `,
   };
   app.status = "bind";
   app.noteid = id;
@@ -195,3 +201,115 @@ function initSettings() {
     ],
   });
 }
+
+//search
+let precentIndex = 0;
+function search() {
+  let note = utools.db.get(app.noteid);
+  if (app.keyword) {
+    mde.codemirror.getWrapperElement().style.display = "none";
+    app.isShowedit = false;
+    let noteList = note.content.split("\n");
+    let arr = noteList.map((item) => {
+      if (item.indexOf("## ") != -1) {
+        item = "<h2>" + item + "</h2>";
+      } else if (item.indexOf("# ") != -1) {
+        item = "<h1>" + item + "</h1>";
+      } else {
+        item = "<p>" + item + "<p>";
+      }
+      return item;
+    });
+    app.note = arr.join("\n");
+    let reg = new RegExp(`(${app.keyword})`, "g");
+    app.keywordLength = note.content.match(reg).length;
+    app.note = app.note.replace(
+      reg,
+      `<span class="search-span" style="color:#FFBB33;">${app.keyword}</span>`
+    );
+    let length =
+      `<span class="search-span" style="color:#FFBB33;">${app.keyword}</span>`
+        .length;
+    let firstIndex = app.note.indexOf(
+      `<span class="search-span" style="color:#FFBB33;">${app.keyword}</span>`
+    );
+    let left =
+      app.note.slice(0, firstIndex) +
+      `<span class="search-span" style="color:#37f;">${app.keyword}</span>`;
+    let right = app.note.slice(firstIndex + length);
+    let newStr = left + right;
+    app.note = newStr;
+    app.keywordIndex = 0;
+    down();
+  } else {
+    mde.codemirror.getWrapperElement().style.display = "block";
+    app.isShowedit = true;
+  }
+}
+function changeColor(val) {
+  let domList = document.querySelectorAll(".search-span");
+  domList.forEach((span, index) => {
+    if (index + 1 == val) {
+      span.style.color = "#37f";
+    } else {
+      span.style.color = "#FFBB33";
+    }
+  });
+}
+
+function scroll() {
+  let targetElement;
+  let domList = document.querySelectorAll(".search-span");
+  domList.forEach((span) => {
+    if (span.style.color === "rgb(51, 119, 255)") {
+      // 对应 #37f 的 RGB 值
+      targetElement = span;
+    }
+  });
+  if (targetElement) {
+    targetElement.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
+  }
+}
+function down() {
+  if (app.keywordIndex < app.keywordLength) {
+    app.keywordIndex++;
+    changeColor(app.keywordIndex);
+    scroll();
+  } else {
+    app.keywordIndex = 0;
+    down();
+    scroll();
+  }
+}
+function up() {
+  if (app.keywordIndex > 1) {
+    app.keywordIndex--;
+    changeColor(app.keywordIndex);
+    scroll();
+  } else {
+    app.keywordIndex = app.keywordLength + 1;
+    up();
+    scroll();
+  }
+}
+
+document.addEventListener("keydown", function (event) {
+  if (
+    event.ctrlKey &&
+    (event.key === "n" || event.key === "N") &&
+    app.keyword
+  ) {
+    down();
+  }
+  if (
+    event.ctrlKey &&
+    (event.key === "p" || event.key === "P") &&
+    app.keyword
+  ) {
+    down();
+  }
+});

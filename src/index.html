@@ -11,6 +11,62 @@
     <link rel="stylesheet" href="css/simplemde.min.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/bootstrap-vue.min.css" />
+    <style type="text/css">
+      .editor {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .editor .search {
+        height: 40px;
+      }
+      input {
+        width: 100%;
+        height: 40px;
+        position: relative;
+      }
+      .index {
+        position: absolute;
+        top: 15px;
+        right: 60px;
+      }
+      .arrow {
+        border: solid rgb(59, 54, 54);
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+      }
+      .arrow:hover {
+        border: solid #fc8d51;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+      }
+      .up {
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        position: absolute;
+        top: 15px;
+        right: 40px;
+        cursor: pointer;
+      }
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        position: absolute;
+        top: 12px;
+        right: 10px;
+        cursor: pointer;
+      }
+      #textarea {
+        height: calc(100vh - 90px);
+        overflow-y: scroll;
+      }
+      .CodeMirror {
+        flex: 1;
+        height: calc(100vh = 90px) !important;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
@@ -48,8 +104,32 @@
         </b-table>
       </div>
       <!-- markdown editor -->
-      <div v-show="status === 'bind'">
+      <div class="editor" v-show="status === 'bind'">
+        <div class="search">
+          <input type="text" v-model="keyword" @input="search" />
+          <div class="index" v-show="keyword">
+            {{keywordIndex}}/{{ keywordLength}}
+          </div>
+          <i
+            v-if="keyword"
+            title="Click or press Ctrl+P"
+            class="arrow up"
+            @click="up"
+          ></i>
+          <i
+            v-if="keyword"
+            title="Click or press Ctrl+N"
+            class="arrow down"
+            @click="down"
+          ></i>
+        </div>
         <textarea style="display: none"></textarea>
+        <div
+          v-if="!isShowedit"
+          id="textarea"
+          contenteditable="true"
+          v-html="note"
+        ></div>
       </div>
       <!-- options -->
       <div v-show="status === 'option'">
