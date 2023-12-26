@@ -222,7 +222,9 @@ function search() {
     });
     app.note = arr.join("\n");
     let reg = new RegExp(`(${app.keyword})`, "g");
-    app.keywordLength = note.content.match(reg).length;
+    app.keywordLength = note.content.match(reg)
+      ? note.content.match(reg).length
+      : 0;
     app.note = app.note.replace(
       reg,
       `<span class="search-span" style="color:#FFBB33;">${app.keyword}</span>`
